@@ -64,6 +64,7 @@ import OptionsModal from "./modals/OptionsModal.vue";
 import FormModal from "./modals/AddOrEditStaffModal.vue";
 import ConfirmationModal from "./modals/ConfirmationModal.vue";
 import { useStore } from "vuex";
+import { useToast } from "../components/utils/toast.js";
 
 let props = defineProps({
   staffMember: {
@@ -82,6 +83,7 @@ const isOptionsModalOpen = ref(false);
 const isEditModalOpen = ref(false);
 const isConfirmationModalOpen = ref(false);
 const store = useStore();
+const { showToast } = useToast();
 
 // Method to map the ID to the image path
 const getAvatarPath = (imageId) => {
@@ -121,6 +123,7 @@ const deleteStaffMember = async () => {
         officeId: props.office.id,
         staffMemberId: props.staffMember.id,
       });
+      showToast("Staff member removed!", "delete");
       closeConfirmationModal();
     } catch (error) {
       console.error("Error deleting staff member:", error);

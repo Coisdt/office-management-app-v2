@@ -103,12 +103,14 @@ import FormButton from "../components/buttons/FormButton.vue";
 import { colorsPickerColors } from "../assets/colors/colorsPickerColors.js";
 import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
+import { useToast } from "../components/utils/toast.js";
 
 const colors = ref(colorsPickerColors);
 const router = useRouter();
 const store = useStore();
 const route = useRoute();
 const isEditMode = route.query.mode === "edit";
+const { showToast } = useToast();
 
 const name = ref("");
 const address = ref("");
@@ -162,11 +164,13 @@ async function addOrEditOffice() {
         officeId: props.id,
         office: officeData,
       });
+      showToast("Office info updated!", "success");
     } else {
       // Creating a new office
       store.dispatch("addOffice", {
         office: officeData,
       });
+      showToast("Office created!", "success");
     }
 
     await store.dispatch("fetchOffices");
@@ -175,8 +179,6 @@ async function addOrEditOffice() {
   }
 
   navigateToHome();
-
-  // toast for successful creation
 }
 
 async function deleteOffice() {
@@ -184,6 +186,7 @@ async function deleteOffice() {
     try {
       await store.dispatch("deleteOffice", props.id);
       navigateToHome();
+      showToast("Office deleted!", "delete");
     } catch (error) {
       console.error("Error deleting office:", error);
     }

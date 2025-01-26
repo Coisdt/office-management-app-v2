@@ -83,7 +83,7 @@ const props = defineProps({
   },
 });
 
-const toggleMoreInfo = ref(false);
+const toggleMoreInfo = ref(true);
 const router = useRouter();
 
 //methods

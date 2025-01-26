@@ -1,6 +1,10 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import "./assets/index.css";
+
+// Toastify library
+import "toastify-js/src/toastify.css";
+
 import router from "./router"; // Import the router
 
 // Font Awesome library

@@ -97,6 +97,7 @@ import { defineEmits, ref, watch, computed } from "vue";
 import FormButton from "../buttons/FormButton.vue";
 import { useStore } from "vuex";
 import avatars from "../../assets/avatars/avatars.js";
+import { useToast } from "../utils/toast.js";
 
 const emit = defineEmits(["close"]);
 
@@ -119,6 +120,7 @@ const firstName = ref("");
 const lastName = ref("");
 const imageId = ref("");
 const showEmptyFieldsError = ref(false);
+const { showToast } = useToast();
 
 const store = useStore();
 
@@ -175,12 +177,15 @@ async function submitForm() {
         staffMemberId: props.staffMember.id,
         staffMember: staffMemberData,
       });
+      showToast("Staff member updated!", "success");
+      await store.dispatch("fetchOffices");
     } else {
       // Creating a new staff member
       store.dispatch("addStaffMember", {
         officeId: props.office.id,
         staffMember: staffMemberData,
       });
+      showToast("Staff member added!", "success");
       await store.dispatch("fetchOffices");
     }
 
