@@ -2,9 +2,14 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./assets/index.css";
 
+// pagination
+import VueAwesomePaginate from "vue-awesome-paginate";
+import "vue-awesome-paginate/dist/style.css";
+
 // Toastify library
 import "toastify-js/src/toastify.css";
 
+// Import the router
 import router from "./router"; // Import the router
 
 // Font Awesome library
@@ -22,6 +27,7 @@ library.add(fas, faCoffee);
 const app = createApp(App);
 
 app.component("font-awesome-icon", FontAwesomeIcon);
+app.use(VueAwesomePaginate);
 app.use(store);
 app.use(router);
 app.mount("#app");
